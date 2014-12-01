@@ -39,10 +39,10 @@ Maze Game
 
 #include <MeggyJrSimple.h>    // Required code, line 1 of 2.
 
-int xcoord = 6;
+int xcoord = 0;
 int ycoord = 0;
 int win = 0;
-
+int loose = 0;
 
 
 
@@ -65,6 +65,11 @@ if(ReadPx(xcoord, ycoord) == Green)
   {
   win = 1;
 }
+
+if(ReadPx(xcoord, ycoord) == Red)
+  {
+  loose = 1;
+} 
 
 
 
@@ -159,6 +164,8 @@ if(ReadPx(xcoord, ycoord) == Green)
   
   DrawPx(7,0,Green);
   
+  DrawPx(3,2,Red);
+  DrawPx(3,1,Red);
   
   
   
@@ -168,9 +175,10 @@ if(ReadPx(xcoord, ycoord) == Green)
       if(ReadPx(xcoord, ycoord) == Green)      
      
       
- { 
+       { 
    
-   
+          
+  ClearSlate();
    
  
           DrawPx(1,6,Green);
@@ -204,8 +212,54 @@ if(ReadPx(xcoord, ycoord) == Green)
           DrawPx(4,2,Green);
           DrawPx(3,2,Green);
           DrawPx(2,2,Green);
- }
+       }
     }    
+    
+      if (loose > 0)
+    {
+      if(ReadPx(xcoord, ycoord) == Red)      
+     
+      
+       { 
+   
+          
+    ClearSlate();
+ 
+   
+ 
+          DrawPx(1,6,1);
+          DrawPx(2,6,1);
+          DrawPx(3,6,1);
+          DrawPx(1,5,1);
+          DrawPx(1,4,1);
+          DrawPx(2,4,1);
+          DrawPx(3,4,1);  
+          DrawPx(3,5,1);
+      
+          DrawPx(4,6,1);
+          DrawPx(4,5,1);
+          DrawPx(4,4,1);
+          DrawPx(5,4,1);
+          DrawPx(6,4,1);
+          DrawPx(6,5,1);
+          DrawPx(6,6,1);
+          DrawPx(5,6,1);
+          DrawPx(4,6,1);
+      
+          DrawPx(1,2,1);
+          DrawPx(1,1,1);
+          DrawPx(2,1,1);
+          DrawPx(3,1,1);
+          DrawPx(4,1,1);
+          DrawPx(5,1,1);
+          DrawPx(6,1,1);
+          DrawPx(6,2,1);
+          DrawPx(5,2,1);
+          DrawPx(4,2,1);
+          DrawPx(3,2,1);
+          DrawPx(2,2,1);
+       }
+    }   
   
 }  
 
