@@ -43,6 +43,7 @@ int xcoord = 0;
 int ycoord = 0;
 int win = 0;
 int loose = 0;
+int power = 0;
 
 
 
@@ -61,16 +62,20 @@ void loop()
   
  
   
-if(ReadPx(xcoord, ycoord) == Green)
+ if(ReadPx(xcoord, ycoord) == Green)
   {
-  win = 1;
-}
+   win = 1;
+  }
 
-if(ReadPx(xcoord, ycoord) == Red)
+ if(ReadPx(xcoord, ycoord) == Red)
   {
-  loose = 1;
-} 
+   loose = 1;
+  } 
 
+ if(ReadPx(xcoord, ycoord) == White)
+  {
+   power = 1;
+  } 
 
 
   CheckButtonsPress();
@@ -80,11 +85,17 @@ if(ReadPx(xcoord, ycoord) == Red)
     { 
       if(ReadPx(xcoord+1, ycoord) == Orange)
       {  
-    } 
+        if (power > 0)
+          { 
+            xcoord++;
+          } 
+        Tone_Start(9000, 50);
+      } 
      
   else
   {
     xcoord++;
+    Tone_Start(9000, 50);
   }
    
 
@@ -98,10 +109,16 @@ if(ReadPx(xcoord, ycoord) == Red)
     {
       if(ReadPx(xcoord, ycoord+1) == Orange)
       {
+        if (power > 0)
+          { 
+            ycoord++;
+          } 
+        Tone_Start(9000, 50);
       }    
      else
      {
        ycoord++;
+       Tone_Start(9000, 50);
      }
     
    
@@ -114,13 +131,19 @@ if(ReadPx(xcoord, ycoord) == Red)
     {
       if(ReadPx(xcoord, ycoord-1) == Orange)
       {
+        if (power > 0)
+          { 
+            ycoord--;
+          } 
+        Tone_Start(9000, 50);
       }
       else
       {
         ycoord--;
+        Tone_Start(9000, 50);
       }
      
-}  
+    }  
    
   }
   
@@ -130,10 +153,16 @@ if(ReadPx(xcoord, ycoord) == Red)
     {
       if(ReadPx(xcoord-1, ycoord) == Orange)      
       {
+        if (power > 0)
+          { 
+            xcoord--;
+          } 
+        Tone_Start(9000, 50);
       }
       else 
       {
         xcoord--;
+        Tone_Start(9000, 50);
       }
      }
      
@@ -166,7 +195,14 @@ if(ReadPx(xcoord, ycoord) == Red)
   
   DrawPx(3,2,Red);
   DrawPx(3,1,Red);
-  
+  DrawPx(0,6,Red);
+  DrawPx(1,6,Red);
+  DrawPx(6,1,Red); 
+  DrawPx(6,2,Red);
+  DrawPx(3,1,Red);
+  DrawPx(7,4,Red);
+  DrawPx(7,5,Red);
+  DrawPx(0,7,White);
   
   
   
@@ -212,6 +248,11 @@ if(ReadPx(xcoord, ycoord) == Red)
           DrawPx(4,2,Green);
           DrawPx(3,2,Green);
           DrawPx(2,2,Green);
+          Tone_Start(18183, 50);
+          DisplaySlate();
+          delay(1000);
+          NewGame();
+          
        }
     }    
     
@@ -258,8 +299,33 @@ if(ReadPx(xcoord, ycoord) == Red)
           DrawPx(4,2,1);
           DrawPx(3,2,1);
           DrawPx(2,2,1);
+          Tone_Start(ToneC3, 50);
+          DisplaySlate();
+          delay(1000);
+          NewGame();
        }
     }   
+    
+    if (power > 0)
+    {
+      if(ReadPx(xcoord, ycoord) == White)             
+       { 
+         Tone_Start(9000, 50);
+         delay(100);
+         Tone_Start(7000, 50);
+         delay(100);       
+         power = 1;
+       }
+    }    
   
 }  
+
+void NewGame()
+{
+  ClearSlate();
+  xcoord = 0;
+  ycoord = 0;
+  DisplaySlate();
+ 
+}
 
